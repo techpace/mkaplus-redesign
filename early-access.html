@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Early access | Legwork</title>
+<meta name="description" content="Request early access to Legwork.">
+<link rel="canonical" href="https://www.mkaplus.com/early-access.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Early access | Legwork">
+<meta property="og:description" content="Request early access to Legwork.">
+<meta property="og:url" content="https://www.mkaplus.com/early-access.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&amp;family=Schibsted+Grotesk:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html">MKA <span>Plus</span></a>
+    <nav class="desktop-nav" aria-label="Main"><ul class="nav-links"><li><a href="legwork.html" aria-current="page">Legwork</a></li><li><a href="marshal.html">Marshal</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
+    <div class="nav-right">
+      <a class="btn primary" href="early-access.html">Get early access</a>
+      <details class="menu"><summary aria-label="Open menu">Menu</summary><nav aria-label="Main (mobile)"><ul class="nav-links"><li><a href="legwork.html" aria-current="page">Legwork</a></li><li><a href="marshal.html">Marshal</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></nav></details>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="page-hero">
+  <div class="wrap stack-lg">
+    <a class="crumb" href="legwork.html">← Legwork</a>
+    <h1 class="sm">Get early access to Legwork</h1>
+    <p class="lede">Tell us a little about your work. We read every request and reply by email when your spot opens.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <div class="stack-lg">
+      <span class="tag">What happens next</span>
+      <div class="rows" style="margin-top:0">
+        <div><h3>1. You send this form</h3><p>It opens your email app with the details filled in.</p></div>
+        <div><h3>2. We reply</h3><p>We confirm we got it and may ask a question about your documents.</p></div>
+        <div><h3>3. You connect</h3><p>When your spot opens, you get a connector URL to paste into Claude or ChatGPT.</p></div>
+      </div>
+    </div>
+    <form class="form" data-subject="Legwork early access request" novalidate>
+      <div class="two-col">
+        <div class="field"><label for="ea-name">Name</label><input id="ea-name" name="name" data-label="Name" required autocomplete="name"></div>
+        <div class="field"><label for="ea-email">Email</label><input id="ea-email" name="email" data-label="Email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="field"><label for="ea-role">What do you do?</label>
+        <select id="ea-role" name="role" data-label="Role" required>
+          <option value="">Choose one</option><option>Writer</option><option>Marketing or content</option>
+          <option>Researcher or analyst</option><option>Developer</option><option>Other</option>
+        </select></div>
+      <fieldset class="field"><legend>Which AI app do you use?</legend>
+        <div class="checks">
+          <label><input type="checkbox" id="ea-app-claude" name="app" value="Claude" data-label="AI app"> Claude</label>
+          <label><input type="checkbox" id="ea-app-chatgpt" name="app" value="ChatGPT"> ChatGPT</label>
+          <label><input type="checkbox" id="ea-app-other" name="app" value="Other"> Other</label>
+        </div></fieldset>
+      <fieldset class="field"><legend>What kind of documents?</legend>
+        <div class="checks">
+          <label><input type="checkbox" id="ea-doc-word" name="docs" value="Word" data-label="Documents"> Word</label>
+          <label><input type="checkbox" id="ea-doc-pdf" name="docs" value="PDF"> PDF</label>
+          <label><input type="checkbox" id="ea-doc-sheets" name="docs" value="Spreadsheets"> Spreadsheets</label>
+          <label><input type="checkbox" id="ea-doc-slides" name="docs" value="Slides"> Slides</label>
+          <label><input type="checkbox" id="ea-doc-md" name="docs" value="Markdown or notes"> Markdown or notes</label>
+        </div></fieldset>
+      <div class="field"><label for="ea-size">Roughly how many files?</label>
+        <select id="ea-size" name="size" data-label="Number of files">
+          <option value="">Choose one</option><option>Under 100</option><option>100 to 1,000</option><option>1,000 to 10,000</option><option>More than 10,000</option>
+        </select></div>
+      <div class="field"><label for="ea-notes">Anything else?</label><textarea id="ea-notes" name="notes" data-label="Notes" placeholder="What would you ask about your documents?"></textarea></div>
+      <div class="actions"><button class="btn primary" type="submit">Request early access</button></div>
+      <p class="form-result" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="stack" style="gap:10px">
+      <a class="logo" href="index.html">MKA <span>Plus</span></a>
+      <p>36/70/4 D2 Street, Ward 25, Binh Thanh District, HCMC, Vietnam</p>
+      <p>Tel +84 28 3620 5400 · hello@mkaplus.com</p>
+    </div>
+    <ul>
+      <li><a href="legwork.html">Legwork</a></li>
+      <li><a href="legwork-benchmark.html">Benchmark</a></li>
+      <li><a href="marshal.html">Marshal</a></li>
+      <li><a href="services.html">Managed IT services</a></li>
+    </ul>
+    <ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+    <p class="legal">© 2026 MKA Plus. All rights reserved.</p>
+  </div>
+</footer>
+<script src="assets/forms.js" defer></script>
+</body>
+</html>

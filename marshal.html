@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marshal | MKA Plus</title>
+<meta name="description" content="Route, approve and account for every AI request. A private control plane for enterprise AI.">
+<link rel="canonical" href="https://www.mkaplus.com/marshal.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Marshal | MKA Plus">
+<meta property="og:description" content="Route, approve and account for every AI request. A private control plane for enterprise AI.">
+<meta property="og:url" content="https://www.mkaplus.com/marshal.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&amp;family=Schibsted+Grotesk:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html">MKA <span>Plus</span></a>
+    <nav class="desktop-nav" aria-label="Main"><ul class="nav-links"><li><a href="legwork.html">Legwork</a></li><li><a href="marshal.html" aria-current="page">Marshal</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
+    <div class="nav-right">
+      <a class="btn primary" href="early-access.html">Get early access</a>
+      <details class="menu"><summary aria-label="Open menu">Menu</summary><nav aria-label="Main (mobile)"><ul class="nav-links"><li><a href="legwork.html">Legwork</a></li><li><a href="marshal.html" aria-current="page">Marshal</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></nav></details>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero gridbg">
+  <div class="wrap">
+    <div class="top">
+      <span class="status">Pilot phase</span>
+      <h1>Route, approve and account for every AI request.</h1>
+      <p class="lede">Know who uses which AI, for what, and at what cost. Marshal is a private control plane for enterprise AI: approved access, scoped keys, quotas, and reports your CIO, FinOps and auditors can rely on, deployed in your data center or VPC.</p>
+      <div class="actions"><a class="btn primary" href="marshal-pilot.html">Talk to us about a pilot</a></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="stack narrow">
+      <span class="tag">The problem</span>
+      <h2>AI use grows from the bottom up.</h2>
+      <p class="muted" style="font-size:1.12rem">Personal accounts, shared keys, tools nobody registered. When finance asks what it costs, or audit asks who approved it, there's no single answer.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <span class="tag">What Marshal does</span>
+    <div class="pillars two">
+      <div class="pillar"><h3>Access with approval chains</h3><ul>
+        <li>Staff request a model and a quota.</li>
+        <li>The request goes through your approval chain: as many levels as your organization needs, in your order.</li>
+        <li>Once approved, a scoped key is issued with quota and expiry.</li>
+        <li>Every step is recorded.</li></ul></div>
+      <div class="pillar"><h3>Usage intelligence</h3><ul>
+        <li>Usage by project, department, provider and model: tokens, cost, latency.</li>
+        <li>Work versus personal or unclassified use.</li>
+        <li>Reports for management, FinOps, security and audit.</li></ul></div>
+      <div class="pillar"><h3>Policy that fails closed</h3><ul>
+        <li>Requests outside the allowed provider, model, region or quota are denied, with a clear reason.</li>
+        <li>No silent fallback to something unapproved.</li></ul></div>
+      <div class="pillar"><h3>Private by default</h3><ul>
+        <li>Runs in your environment.</li>
+        <li>Provider keys stay in your secret store; applications never see them.</li>
+        <li>Prompts and responses are not stored unless your policy says so.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="surface">
+  <div class="wrap split even">
+    <div class="stack-lg">
+      <span class="tag">One request, start to finish</span>
+      <h2>From request to key, on the record.</h2>
+      <p class="muted">The same object that was requested and approved is the one that gets metered and reported. So "who approved this" and "what was used under it" have one answer.</p>
+    </div>
+    <div class="stack">
+      <ul class="chain" aria-label="Example approval chain">
+        <li><span class="dot"></span><span>Access requested: model + monthly quota</span><span class="ok">submitted</span></li>
+        <li><span class="dot"></span><span>Team manager</span><span class="ok">approved</span></li>
+        <li><span class="dot"></span><span>IT security</span><span class="ok">approved</span></li>
+        <li><span class="dot"></span><span>FinOps</span><span class="ok">approved</span></li>
+        <li><span class="dot"></span><span>Scoped key issued, with quota and expiry</span><span class="ok">recorded</span></li>
+      </ul>
+      <ul class="chain" aria-label="Example denied request">
+        <li class="deny"><span class="dot"></span><span>Later request uses a model outside the approval</span><span class="ok">denied · reason logged</span></li>
+      </ul>
+      <p class="fn">Example. Levels and order are set by your organization.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split even">
+    <div class="stack-lg">
+      <span class="tag">Reports</span>
+      <h2>Answers for each person who asks.</h2>
+      <p class="muted">Reports use metadata and aggregates, so they don't need copies of sensitive content.</p>
+    </div>
+    <div class="qs" aria-label="Questions Marshal answers">
+      <div class="q"><b>CIO / IT</b><span>Which providers, connections and models are in use, by which projects?</span></div>
+      <div class="q"><b>FinOps</b><span>What does it cost, by department and project, against quota and budget?</span></div>
+      <div class="q"><b>Security / Audit</b><span>Who requested, who approved, when, and what was used under that key?</span></div>
+      <div class="q"><b>Department heads</b><span>What is my team using, and is it within what we approved?</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap split">
+    <div class="stack">
+      <span class="tag">Marshal + Legwork</span>
+      <h2>Bottom-up use, top-down view.</h2>
+    </div>
+    <p class="muted" style="font-size:1.08rem">Employees use Legwork to get more from the AI they already have. Marshal shows IT what it's used for and what it saves.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="pillars two" style="margin-top:0">
+      <div class="pillar"><h3>Fits how your organization approves things</h3><p>Approval chains with as many levels as your process needs, in your order. Reports shaped to your departments and projects. Our implementation team configures it with you, without custom code forks.</p></div>
+      <div class="pillar"><h3>Designed for standard interfaces</h3><p>Built around OpenAI- and Anthropic-compatible APIs, MCP and OpenTelemetry, so it governs the tools you already run instead of replacing them.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="surface">
+  <div class="wrap split">
+    <div class="stack">
+      <span class="tag">Pilot phase</span>
+      <h2>Start with a pilot in your environment.</h2>
+    </div>
+    <div class="stack">
+      <p class="muted">A time-boxed pilot with acceptance criteria agreed up front. We run a small number at a time.</p>
+      <div class="actions"><a class="btn primary" href="marshal-pilot.html">Talk to us about a pilot</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="stack" style="gap:10px">
+      <a class="logo" href="index.html">MKA <span>Plus</span></a>
+      <p>36/70/4 D2 Street, Ward 25, Binh Thanh District, HCMC, Vietnam</p>
+      <p>Tel +84 28 3620 5400 · hello@mkaplus.com</p>
+    </div>
+    <ul>
+      <li><a href="legwork.html">Legwork</a></li>
+      <li><a href="legwork-benchmark.html">Benchmark</a></li>
+      <li><a href="marshal.html">Marshal</a></li>
+      <li><a href="services.html">Managed IT services</a></li>
+    </ul>
+    <ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+    <p class="legal">© 2026 MKA Plus. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>

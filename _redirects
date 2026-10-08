@@ -1,6 +1,8 @@
-/	index.html
-/our-services	our-services.html
-/about	about.html
-/contact	contact.html
-/our-client	our-client.html
-/blog	blog.html
+# Netlify-style rules, kept for hosts that read this file. nginx equivalents are in README.md.
+/our-services   /services.html   301
+/our-services.html   /services.html   301
+/our-client     /                301
+/our-client.html     /           301
+/blog           /                301
+/blog.html      /                301
+/:page          /:page.html      200
