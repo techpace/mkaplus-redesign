@@ -354,7 +354,7 @@ BENCH = f"""
   <div class="wrap stack-lg">
     <a class="crumb" href="legwork.html">← Legwork</a>
     <h1 class="sm">Legwork benchmark</h1>
-    <p class="lede">How much work moves off your main model when it delegates the digging, and what happens to answer quality. Internal test, run 5 October 2026, reviewed 6 October 2026.</p>
+    <p class="lede">How much work moves off your main model when it delegates the digging, and what happens to answer quality. Internal test.</p>
   </div>
 </section>
 
