@@ -40,7 +40,7 @@ def page(fname, title, desc, body, active=None, forms=False):
 <body>
 <header class="site-header">
   <div class="wrap">
-    <a class="logo" href="index.html">MKA <span>Plus</span></a>
+    <a class="logo" href="index.html" aria-label="MKA Plus"><img src="assets/logo.webp" alt="MKA Plus" width="800" height="129"></a>
     <nav class="desktop-nav" aria-label="Main">{nav_list(active)}</nav>
     <div class="nav-right">
       <a class="btn primary" href="early-access.html">Get early access</a>
@@ -56,7 +56,7 @@ def page(fname, title, desc, body, active=None, forms=False):
 <footer class="site-footer">
   <div class="wrap">
     <div class="stack" style="gap:10px">
-      <a class="logo" href="index.html">MKA <span>Plus</span></a>
+      <a class="logo" href="index.html" aria-label="MKA Plus"><img src="assets/logo.webp" alt="MKA Plus" width="800" height="129"></a>
       <p>36/70/4 D2 Street, Ward 25, Binh Thanh District, HCMC, Vietnam</p>
       <p>Tel +84 28 3620 5400 · hello@mkaplus.com</p>
     </div>

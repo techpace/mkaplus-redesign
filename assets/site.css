@@ -92,6 +92,10 @@ code { font-family: var(--mono); font-size: .9em; }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
 .logo { font-family: var(--display); font-weight: 800; font-stretch: 115%; font-size: 1.2rem; text-decoration: none; letter-spacing: -.01em; white-space: nowrap; }
 .logo span { color: var(--accent); }
+.logo { display: inline-flex; align-items: center; line-height: 0; }
+.logo img { display: block; height: 28px; width: auto; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .logo img { filter: invert(1) hue-rotate(180deg); } }
+:root[data-theme="dark"] .logo img { filter: invert(1) hue-rotate(180deg); }
 .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; font-size: .95rem; }
 .nav-links a { display: block; text-decoration: none; padding: .4em .8em; border-radius: 6px; color: var(--muted); }
 .nav-links a:hover { background: var(--grid); color: var(--ink); }
