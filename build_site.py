@@ -1,11 +1,11 @@
 """Generates the static MKA Plus site into website/. Output is plain HTML; the script is a one-off authoring aid."""
-import pathlib, sys
+import datetime, pathlib, sys
 
 OUT = pathlib.Path(sys.argv[1])
 BASE = "https://www.mkaplus.com/"
 
 NAV = [("legwork.html", "Legwork"), ("marshal.html", "Marshal"), ("services.html", "Services"),
-       ("about.html", "About"), ("contact.html", "Contact")]
+       ("about.html", "About"), ("blog.html", "Blog"), ("contact.html", "Contact")]
 
 
 def nav_list(active):
@@ -38,7 +38,7 @@ def page(fname, title, desc, body, active=None, forms=False):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&amp;family=Schibsted+Grotesk:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
-<link rel="stylesheet" href="assets/site.css?v=3">
+<link rel="stylesheet" href="assets/site.css?v=4">
 </head>
 <body>
 <header class="site-header">
@@ -71,6 +71,7 @@ def page(fname, title, desc, body, active=None, forms=False):
     </ul>
     <ul>
       <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="privacy.html">Privacy</a></li>
       <li><a href="terms.html">Terms</a></li>
@@ -884,6 +885,175 @@ NOTFOUND = """
 </section>
 """
 
+# ---------------------------------------------------------------- blog
+# To add a post: write its body as a string, then add an entry to the top of POSTS (newest first).
+# Each post is written to blog-<slug>.html (served at /blog-<slug>) and listed on blog.html.
+# Figures for posts. Bar widths are computed from the raw values, so charts are always to scale.
+def bar_metric(title, delta, rows):
+    """rows: [(label, [(value, extra_fill_class), ...], shown_value)]; one segment = plain bar, several = stacked."""
+    vmax = max(sum(v for v, _ in segs) for _, segs, _ in rows)
+    out = []
+    for lab, segs, shown in rows:
+        fills = "".join(f'<div class="fill{" " + cls if cls else ""}" style="width:{v / vmax * 100:.2f}%"></div>' for v, cls in segs)
+        track = "track stacked" if len(segs) > 1 else "track"
+        out.append(f'<div class="row"><span class="lab">{lab}</span><div class="{track}">{fills}</div><span class="val">{shown}</span></div>')
+    return (f'<div class="metric"><div class="metric-head"><h3>{title}</h3><span class="delta">{delta}</span></div>'
+            + "".join(out) + "</div>")
+
+
+FIG_MODES = """
+<figure class="post-fig">
+  <div class="modes" role="img" aria-label="The two modes. Does it all: the reasoning model searches and reads every file itself, then writes the answer. With Legwork: the reasoning model hands the digging to a Legwork worker, which searches, reads and cross-checks, and returns a short sourced report; the reasoning model then writes the answer.">
+    <div class="mode">
+      <span class="tag">Mode 1 · Does it all</span>
+      <div class="mode-flow">
+        <div class="node ai"><span class="who">Reasoning model</span><h3>Searches and reads every file itself</h3></div>
+        <span class="to" aria-hidden="true">→</span>
+        <div class="node ai"><span class="who">Reasoning model</span><h3>Writes the answer</h3></div>
+      </div>
+    </div>
+    <div class="mode">
+      <span class="tag">Mode 2 · With Legwork</span>
+      <div class="mode-flow">
+        <div class="node ai"><span class="who">Reasoning model</span><h3>Hands off the digging</h3></div>
+        <span class="to" aria-hidden="true">→</span>
+        <div class="node worker"><span class="who">Legwork worker</span><h3>Searches, reads, cross-checks</h3></div>
+        <span class="to" aria-hidden="true">→</span>
+        <div class="node docs"><span class="who">Report</span><h3>Short, with sources</h3></div>
+        <span class="to" aria-hidden="true">→</span>
+        <div class="node ai"><span class="who">Reasoning model</span><h3>Writes the answer</h3></div>
+      </div>
+    </div>
+  </div>
+  <figcaption class="fn">The two modes we compared. Each of the 10 questions ran twice in each mode.</figcaption>
+</figure>
+"""
+
+FIG_TOKENS = f"""
+<figure class="post-fig">
+  <div class="bars">
+    {bar_metric("Reasoning-model input tokens", "−98.6%", [("Does it all", [(37.45, "")], "37.45M"), ("With Legwork", [(0.51, "lw")], "0.51M")])}
+    {bar_metric("Reasoning-model requests", "−91%", [("Does it all", [(776, "")], "776"), ("With Legwork", [(68, "lw")], "68")])}
+  </div>
+  <figcaption class="fn">Totals over 20 runs per mode. Bars to scale.</figcaption>
+</figure>
+"""
+
+FIG_COST = f"""
+<figure class="post-fig">
+  <div class="bars">
+    {bar_metric("Total cost, 20 runs", "−88%", [("Does it all", [(17.19, "")], "$17.19"), ("With Legwork", [(1.40, "seg"), (0.61, "lw seg")], "$2.01")])}
+  </div>
+  <div class="legend"><span><i></i>Reasoning model (Qwen3.8-Max)</span><span><i class="lw"></i>Worker (Agnes 3.0 Flash)</span></div>
+  <figcaption class="fn">At list API rates as of 8 October 2026. With Legwork: $1.40 reasoning model + $0.61 worker. Bars to scale.</figcaption>
+</figure>
+"""
+
+POST_LEGWORK_COSTS = f"""
+<p>When we tell people Legwork cut our reasoning model's input tokens by 98.6%, the first question is usually "on what?" Fair question. Here's the short version, and the parts we'd rather you hear from us than discover yourself.</p>
+
+<h2>The setup</h2>
+<p>On 5 October we took a real working corpus: a 2,275-file Vietnamese novel manuscript and its notes, about 35 MB of text. The author gave us 10 questions they actually ask day to day. Each question ran twice in two modes. In one, the reasoning model did all the searching and reading itself. In the other, it handed the digging to a Legwork worker and worked from the report. That's 40 runs, each with a 10-minute budget, and the author reviewed all 40 answers blind.</p>
+{FIG_MODES.strip()}
+
+<h2>What moved</h2>
+<p>Across 20 runs per mode, the reasoning model's input went from 37.45M tokens to 0.51M, and its requests from 776 to 68. Even counting only tokens that weren't cache hits, input dropped 88.4%. The average review score was identical, 4.12 out of 5 in both modes, and the delegated answer was preferred in 6 of 10 questions.</p>
+{FIG_TOKENS.strip()}
+
+<h2>What it costs</h2>
+<p>We priced the measured tokens at list API rates as of 8 October 2026. The reasoning model was Qwen3.8-Max ($2 per 1M input tokens, $0.25 cached, $6 output, Alibaba Cloud Singapore). The worker was Agnes 3.0 Flash ($0.05 input, $0.005 cached, $0.15 output).</p>
+<p>Doing all the digging itself, Qwen3.8-Max cost $17.19 across 20 runs, about $0.86 per question. With Legwork, its share fell to $1.40. The worker read 43.1M tokens of prompt to do the digging, mostly cache hits, wrote 0.35M, and added $0.61. That's $2.01 in total, about $0.10 per question, or 88% less.</p>
+{FIG_COST.strip()}
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>At list API rates</th><th class="num">Reasoning model</th><th class="num">Worker</th><th class="num">Total</th><th class="num">Per question</th></tr></thead>
+    <tbody>
+      <tr><td>Does it all</td><td class="num">$17.19</td><td class="num">$0</td><td class="num">$17.19</td><td class="num">$0.86</td></tr>
+      <tr><td>With Legwork</td><td class="num">$1.40</td><td class="num">$0.61</td><td class="num"><strong>$2.01</strong></td><td class="num"><strong>$0.10</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+<p>Two honest footnotes. Money falls less than tokens (88% versus 98.6%) because most of the "does it all" input was cache hits, which are cheap. And the "does it all" figure is a floor: 16 of its 20 runs hit the 10-minute budget before finishing.</p>
+
+<h2>What didn't move</h2>
+<p>It wasn't faster: both modes took about the same total time. The work didn't vanish either. The worker read about 8.2 MB and returned 0.68 MB of reports, so the reading still happened, just on a low-cost model you choose instead of your main one.</p>
+
+<h2>Where it was worse</h2>
+<p>Two of the 20 delegated answers contained an inaccuracy; none of the "does it all" answers did. That's the reason every Legwork finding carries an exact source. You can check a claim in seconds, and re-running the worker is cheap.</p>
+
+<h2>What we haven't tested yet</h2>
+<p>This was one corpus with one reviewer, and the reasoning model was driven through its API, not inside the Claude or ChatGPT apps. Testing inside the apps is in progress, and we'll publish those numbers here when we have them.</p>
+
+<p>If you want every table, the <a href="legwork-benchmark.html">full methodology</a> is public.</p>
+"""
+
+POSTS = [
+    dict(slug="legwork-benchmark-costs", date="2026-10-08",
+         title="98.6% fewer tokens. Here's what that number does and doesn't mean.",
+         summary="What our Legwork benchmark measured, what it costs in dollars, and what it doesn't show.",
+         body=POST_LEGWORK_COSTS),
+]
+
+
+def post_fname(post):
+    return f"blog-{post['slug']}.html"
+
+
+def human_date(iso):
+    d = datetime.date.fromisoformat(iso)
+    return f"{d.day} {d:%B %Y}"
+
+
+def post_page(post):
+    return f"""
+<section class="page-hero">
+  <div class="wrap">
+    <div class="post-col stack-lg">
+      <a class="crumb" href="blog.html">← Blog</a>
+      <span class="tag"><time datetime="{post['date']}">{human_date(post['date'])}</time></span>
+      <h1 class="sm">{post['title']}</h1>
+      <p class="lede">{post['summary']}</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <article class="prose post-col">
+{post['body'].strip()}
+    </article>
+  </div>
+</section>
+"""
+
+
+def blog_index():
+    rows = "\n".join(f"""      <div>
+        <span class="tag"><time datetime="{p['date']}">{human_date(p['date'])}</time></span>
+        <div class="stack" style="gap:6px"><h3><a href="{post_fname(p)}">{p['title']}</a></h3><p>{p['summary']}</p></div>
+      </div>""" for p in POSTS)
+    return f"""
+<section class="page-hero">
+  <div class="wrap stack-lg">
+    <span class="tag">Blog</span>
+    <h1 class="sm">Notes from the build.</h1>
+    <p class="lede">What we're working on at MKA Plus, how we test it, and what the numbers do and don't show.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="rows" style="margin-top:0">
+{rows}
+    </div>
+  </div>
+</section>
+"""
+
+
+BLOG_PAGES = [("blog.html", "Blog | MKA Plus", "Notes from MKA Plus on what we're building and how we test it.", blog_index(), "blog.html", False)] + [
+    (post_fname(p), f"{p['title']} | MKA Plus", p["summary"], post_page(p), "blog.html", False) for p in POSTS]
+
 PAGES = [
     ("index.html", "MKA Plus", "Legwork hands the digging to a low-cost worker so Claude or ChatGPT can keep the thinking. Marshal governs AI use across your organization.", HOME, None, False),
     ("legwork.html", "Legwork | MKA Plus", "A research worker for Claude and ChatGPT. It searches, reads and cross-checks your documents and reports back with sources.", LEGWORK, "legwork.html", False),
@@ -894,6 +1064,7 @@ PAGES = [
     ("marshal-pilot.html", "Pilot program | Marshal", "Request a time-boxed Marshal pilot in your environment.", PILOT, "marshal.html", True),
     ("services.html", "Managed IT services | MKA Plus", "Network, security, planning, licensing and AI rollout from MKA Plus.", SERVICES, "services.html", False),
     ("about.html", "About | MKA Plus", "MKA Plus: from managed IT to building AI products.", ABOUT, "about.html", False),
+    *BLOG_PAGES,
     ("contact.html", "Contact | MKA Plus", "Contact MKA Plus about Legwork, Marshal or managed IT services.", CONTACT, "contact.html", True),
     ("privacy.html", "Privacy | MKA Plus", "How the MKA Plus website handles your information.", PRIVACY, None, False),
     ("terms.html", "Terms | MKA Plus", "Terms for using the MKA Plus website.", TERMS, None, False),

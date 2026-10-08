@@ -3,8 +3,6 @@
 /our-services.html   /services.html   301
 /our-client     /                301
 /our-client.html     /           301
-/blog           /                301
-/blog.html      /                301
 # Internal files: never serve (forced 404, overrides real files)
 /README.md   /404.html   404!
 /build_site.py   /404.html   404!

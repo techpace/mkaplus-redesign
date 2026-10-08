@@ -11,6 +11,8 @@ early-access.html          Legwork early access form
 marshal.html               Marshal
 marshal-pilot.html         Marshal pilot form
 services.html              Managed IT services
+blog.html                  Blog index (posts are defined in POSTS in build_site.py)
+blog-<slug>.html           One page per blog post, served at /blog-<slug>
 about.html, contact.html, privacy.html, terms.html, 404.html
 assets/site.css            All styles (colors are tokens at the top; light + dark)
 assets/forms.js            Form handling
@@ -47,7 +49,6 @@ server {
     # old site URLs
     location = /our-services.html { return 301 /services.html; }
     location = /our-client.html   { return 301 /; }
-    location = /blog.html         { return 301 /; }
 
     location ~ (\.(py|md)$|^/_redirects$|^/\.git) { return 404; }   # keep build files and git data private
     location /assets/ { expires 7d; add_header Cache-Control "public"; }
