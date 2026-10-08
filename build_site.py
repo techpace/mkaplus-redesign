@@ -38,12 +38,12 @@ def page(fname, title, desc, body, active=None, forms=False):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&amp;family=Schibsted+Grotesk:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=3">
 </head>
 <body>
 <header class="site-header">
   <div class="wrap">
-    <a class="logo" href="index.html" aria-label="MKA Plus"><img src="assets/logo.webp" alt="MKA Plus" width="800" height="129"></a>
+    <a class="logo" href="index.html" aria-label="MKA Plus"><img src="assets/logo.webp" alt="MKA Plus" width="174" height="28"></a>
     <nav class="desktop-nav" aria-label="Main">{nav_list(active)}</nav>
     <div class="nav-right">
       <a class="btn primary" href="early-access.html">Get early access</a>
@@ -59,7 +59,7 @@ def page(fname, title, desc, body, active=None, forms=False):
 <footer class="site-footer">
   <div class="wrap">
     <div class="stack" style="gap:10px">
-      <a class="logo" href="index.html" aria-label="MKA Plus"><img src="assets/logo.webp" alt="MKA Plus" width="800" height="129"></a>
+      <a class="logo" href="index.html" aria-label="MKA Plus"><img src="assets/logo.webp" alt="MKA Plus" width="174" height="28"></a>
       <p>36/70/4 D2 Street, Ward 25, Binh Thanh District, HCMC, Vietnam</p>
       <p>Tel +84 28 3620 5400 · hello@mkaplus.com</p>
     </div>
