@@ -987,7 +987,100 @@ POST_LEGWORK_COSTS = f"""
 <p>If you want every table, the <a href="legwork-benchmark.html">full methodology</a> is public.</p>
 """
 
+FIG_REPORT = f"""
+<figure class="post-fig" style="padding:0;background:none;border:0">
+  {REPORT.strip()}
+  <figcaption class="fn">An example worker report: one finding per line, each with its source, and a list of what wasn't found.</figcaption>
+</figure>
+"""
+
+POST_WHY_LEGWORK = f"""
+<p>Legwork started with a pattern that's easy to miss when you use AI every day. Ask Claude or ChatGPT a question about a large folder and it doesn't just think. It starts digging: search, open, read, search again. Dozens of rounds, each one resending everything it has read so far.</p>
+<p>Your best model ends up spending its effort on errands. That's the problem we set out to fix.</p>
+
+<h2>The errands add up</h2>
+<p>Searching a folder isn't hard work. It's a lot of small, repetitive work: find the files that might matter, open them, skim, decide what to read next. A frontier model can do all of that, but it's an expensive place to do it, and every round makes the conversation heavier, because the model carries everything it has read into the next step.</p>
+<p>In our benchmark, 10 real questions about a 2,275-file manuscript, the reasoning model that did all the digging itself used 776 requests and 37.45M input tokens across 20 runs.</p>
+
+<h2>Split the thinking from the digging</h2>
+<p>So we split the job. Claude or ChatGPT keeps the reasoning: it understands your question, weighs the evidence and writes the answer. The searching, reading and cross-checking goes to a worker, a low-cost model that does the legwork and comes back with a short report.</p>
+<p>With that split, the same benchmark's reasoning model used 68 requests and 0.51M input tokens, 98.6% fewer, with the same average score in a blind review: 4.12 out of 5 in both modes. At list API rates, the total cost of those 20 runs went from $17.19 to $2.01.</p>
+
+<h2>Bring your own worker</h2>
+<p>We don't pick the worker for you. You connect your own key with a low-cost model provider, or run a local model, and you pay that provider directly. MKA Plus never resells tokens.</p>
+<p>That's partly about trust. You know which model read your documents, and if you'd rather keep document text on your own hardware, you can. It's also about honest numbers: worker cost depends on the model you choose, and you see that bill directly instead of finding it folded into ours.</p>
+
+<h2>Every finding carries a source</h2>
+<p>A cheaper model doing the reading raises a fair question: can you trust what it found? Our benchmark says it isn't perfect. Two of the 20 delegated answers contained an inaccuracy; none of the answers where the reasoning model did everything itself did.</p>
+<p>So the worker doesn't hand back a summary you have to take on faith. Every finding comes with the exact file and location it came from, so you or your AI can check it in seconds. The report also lists what the worker looked for and couldn't find. Gaps are stated, not filled in. And re-running the worker is cheap, so a doubtful finding is easy to check again.</p>
+{FIG_REPORT.strip()}
+
+<h2>What we haven't proven yet</h2>
+<p>Legwork isn't faster. In the benchmark, both modes took about the same total time. The saving is in the work your main model does, not in waiting time.</p>
+<p>Our numbers come from one corpus, one reviewer, and a reasoning model driven through its API, not inside the Claude or ChatGPT apps. Testing inside the apps is in progress, and we'll publish those results here when we have them.</p>
+<p>Setup is meant to be one step. When your early access spot opens, you get one connector URL to paste into Claude or ChatGPT, and the same workspace is shared across the apps you connect.</p>
+
+<p>For the numbers in full, read <a href="blog-legwork-benchmark-costs.html">what our benchmark does and doesn't mean</a>, or see <a href="legwork.html">how Legwork works</a>. <a href="early-access.html">Early access</a> is open, and we read every request.</p>
+"""
+
+FIG_LEDGER = """
+<figure class="post-fig" style="padding:0;background:none;border:0">
+  <div class="pillars two" style="margin-top:0">
+    <div class="pillar"><h3>Recorded for every job</h3><ul>
+      <li>Every tool call the worker makes</li>
+      <li>Its arguments, with secrets redacted</li>
+      <li>The size of each result</li>
+      <li>Substantive vs control bytes in each MCP response</li></ul></div>
+    <div class="pillar"><h3>Never recorded</h3><ul>
+      <li>The content of your files</li>
+      <li>The text of the report</li>
+      <li>Secrets passed in arguments</li></ul></div>
+  </div>
+  <figcaption class="fn">What the per-job trace and per-call ledger keep. Built and tested, not live yet.</figcaption>
+</figure>
+"""
+
+POST_WONT_READ = f"""
+<div class="note-box"><strong>Not live yet.</strong> Everything on this page is built and tested, but it isn't serving real users today. It comes with our next public release. We're writing about it now because how a tool treats your files should be clear before you hand them over.</div>
+
+<p>When you point a research worker at a folder, two questions matter as much as the answers it gives back: what will it refuse to read, and what record does it keep? Here's how Legwork handles both, including the parts that are deliberately blunt.</p>
+
+<h2>Files it won't read</h2>
+<p>Any file whose name matches <code>*secret*</code> or <code>*credential*</code> is hard-denied. The worker never reads it, and the report lists it as excluded, so you can see what was skipped instead of wondering.</p>
+<p>We'll be candid about this rule. It's based on file names, and it's deliberately strict. That means it can skip an innocent file, a chapter called <code>secret-garden.md</code>, for example, and it can't catch a sensitive file with an ordinary name.</p>
+<p>It's a temporary rule, and we'll refine it. Until then, the obvious habit is the safest one: keep keys and passwords out of the folders you point Legwork at.</p>
+
+<h2>One job, one container</h2>
+<p>Each research job runs its worker in an isolated Docker container, started from a pinned image. One job's worker doesn't share a running environment with another's, and the image it runs is a fixed, known version rather than whatever happened to be installed that day.</p>
+<p>This is about isolating each job's worker. Where workspaces are stored, how long data is kept and how each customer's workspace is isolated will be published on <a href="legwork-privacy.html">Your documents and keys</a> before early access opens, as that page says.</p>
+
+<h2>Keys you can revoke</h2>
+<p>The API keys that give access to Legwork are stored only as sha256 hashes, so the stored value can't be turned back into a working key. Keys can be revoked. Right now, a revocation takes effect after a server restart.</p>
+
+<h2>What it writes down</h2>
+<p>Every job gets a trace, and every call gets a line in a ledger. Each tool call is recorded with its arguments, with secrets redacted, and the size of its result. The ledger never stores your file content or the report text.</p>
+<p>It also splits every MCP response into substantive bytes and control bytes: the part that carries the content, and the protocol around it. That split is what lets a token-savings claim be audited from the record instead of taken on trust.</p>
+{FIG_LEDGER.strip()}
+
+<h2>Cancel and restarts</h2>
+<p>You can cancel a job, and it stops reliably. If the server restarts while jobs are running, those jobs are clearly marked and cleaned up, not left half-finished in the background. A lock stops two servers from running on the same state at once.</p>
+
+<h2>What stays the same</h2>
+<p>None of this changes who reads what. The worker model you connect reads the parts of your documents it searches. Your AI app, Claude or ChatGPT, receives the worker's short report, not your whole files. You bring your own key or a local model, and MKA Plus never resells tokens.</p>
+<p>To recap the status: the name rule, per-job containers, hashed keys, the trace and ledger, and the cancel and restart handling are built and tested, and they come with our next public release. They aren't live today.</p>
+
+<p>For the bigger picture, read <a href="blog-why-we-built-legwork.html">why we built Legwork</a>. Questions about any of this: <strong>hello@mkaplus.com</strong>.</p>
+"""
+
 POSTS = [
+    dict(slug="why-we-built-legwork", date="2026-10-08",
+         title="Why we built Legwork",
+         summary="Frontier models spend too much effort on errands. Here's the split we made, and what we still haven't proven.",
+         body=POST_WHY_LEGWORK),
+    dict(slug="what-legwork-wont-read", date="2026-10-08",
+         title="What Legwork won't read, and what it writes down",
+         summary="How our next release handles sensitive files, keys and the audit trail, including the limits. Built and tested, not live yet.",
+         body=POST_WONT_READ),
     dict(slug="legwork-benchmark-costs", date="2026-10-08",
          title="98.6% fewer tokens. Here's what that number does and doesn't mean.",
          summary="What our Legwork benchmark measured, what it costs in dollars, and what it doesn't show.",
