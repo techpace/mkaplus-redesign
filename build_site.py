@@ -830,7 +830,7 @@ PRIVACY = """
 <section class="page-hero">
   <div class="wrap stack-lg">
     <h1 class="sm">Privacy</h1>
-    <p class="lede">How this website handles your information. Last updated 8 October 2026.</p>
+    <p class="lede">How this website handles your information.</p>
   </div>
 </section>
 
@@ -856,7 +856,7 @@ TERMS = """
 <section class="page-hero">
   <div class="wrap stack-lg">
     <h1 class="sm">Terms</h1>
-    <p class="lede">Terms for using this website. Last updated 8 October 2026.</p>
+    <p class="lede">Terms for using this website.</p>
   </div>
 </section>
 
@@ -907,7 +907,7 @@ urls = [p[0] for p in PAGES if p[0] != "404.html"]
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for u in urls:
     loc = BASE if u == "index.html" else BASE + u
-    sm.append(f"  <url><loc>{loc}</loc><lastmod>2026-10-08</lastmod></url>")
+    sm.append(f"  <url><loc>{loc}</loc></url>")
 sm.append("</urlset>")
 (OUT / "sitemap.xml").write_text("\n".join(sm) + "\n", encoding="utf-8")
 (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {BASE}sitemap.xml\n", encoding="utf-8")
