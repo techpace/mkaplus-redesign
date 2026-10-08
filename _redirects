@@ -5,4 +5,11 @@
 /our-client.html     /           301
 /blog           /                301
 /blog.html      /                301
+# Internal files: never serve (forced 404, overrides real files)
+/README.md   /404.html   404!
+/build_site.py   /404.html   404!
+/_redirects   /404.html   404!
+/10853299-1655312208.5223.html   /404.html   404!
+/.git/*   /404.html   404!
+
 /:page          /:page.html      200
