@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build && npm test"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22.22.2"
+
+# Preserve the existing .html canonical URLs.
+[build.processing.html]
+  pretty_urls = false

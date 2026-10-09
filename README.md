@@ -109,7 +109,28 @@ Forms retain the current behavior: submission opens the visitor's email app with
 details addressed to `hello@mkaplus.com`. A `data-endpoint` can be configured for a
 real handler later. This migration does not add a form backend.
 
-## Deploy on the HP Gen8 (nginx)
+## Netlify deployment
+
+The live domain currently points to the Netlify site `glistening-khapse-b69d57`.
+`netlify.toml` runs `npm run build && npm test` using Node 22.22.2 and publishes only
+`dist/`. Pretty URL post-processing is disabled to preserve `.html` canonicals.
+The production branch is controlled in Netlify's site settings; this repository's
+configuration does not change that setting.
+
+For an authorized direct production deploy of the tested local output:
+
+```sh
+npm run build
+npm test
+netlify deploy --prod --dir=dist --site=glistening-khapse-b69d57
+```
+
+Authenticate through Netlify's CLI/browser login before deploying. Do not commit
+credentials. Verify the live homepage, blog filters, articles, assets and old routes
+after publication. Production deployment status must be verified from the host,
+not inferred from a local build or Git push.
+
+## Alternative deployment on the HP Gen8 (nginx)
 
 Build in a checkout outside the web root, then deploy **only the contents of `dist/`**.
 The previous `git pull` directly in the served repository root is no longer sufficient.
