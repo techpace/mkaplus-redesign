@@ -12,9 +12,9 @@ without a new requirement. The current taxonomy is `src/data/taxonomy.ts`, and
 1. Create `src/content/posts/<slug>.md`. Use a stable lowercase kebab-case filename;
    the public URL will be `/blog-<slug>.html`. Do not add a separate `slug` field.
 2. Copy `docs/templates/post.md` as the starting point. Keep `status: draft` while writing.
-3. Select existing classification IDs. Check the actual product release and benchmark
-   evidence before making claims. Preserve distinctions between built/tested, pilot,
-   and publicly available behavior.
+3. Select existing classification IDs. Check source documents and benchmark evidence before making claims. Follow the
+   owner-approved knowledge positioning in the README: market features directly
+   without availability labels; do not turn product direction into benchmark evidence.
 4. Use ordinary Markdown for prose. Existing figures use raw HTML to preserve their
    layout and accessibility. Raw HTML is trusted executable website source: do not
    paste scripts or unreviewed embeds into posts.

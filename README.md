@@ -55,8 +55,8 @@ HTML. For small product-page edits, change the matching HTML fragment; for share
 changes, edit the layout/components. `src/data/pages.json` controls page metadata.
 
 Original messaging reference: `docs/website/MKAPLUS_SITEMAP_AND_MESSAGING.md` in
-`techpace/my-harness`. Claims about Legwork/Marshal must still be checked against
-the product's current release state.
+`techpace/my-harness`. Product copy follows owner-approved positioning and source evidence. Marketing describes
+features directly; availability labels are not required for this positioning.
 
 ## Blog
 
@@ -209,3 +209,22 @@ a compatibility sitemap index. `robots.txt` points to `sitemap-index.xml`.
 - [ ] If analytics or cookies are added later, update `privacy.html`.
 - [ ] Add the open-source section when the core repo is public.
 - [ ] Configure and verify the build/deploy process on the actual host.
+
+## Legwork knowledge positioning (9 October 2026)
+
+Home and Legwork now present research plus a built-in, source-linked LLM wiki:
+**Every investigation makes your workspace smarter.** The copy explains connected
+entities, relationships, decisions, events and open questions, and knowledge that
+accumulates across investigations without promising a fixed month/year outcome.
+
+Source: [Knowledge Strategy](https://github.com/techpace/my-harness/blob/b7d2440c2aad42049f0dbd05f3435ade2bf88ff4/docs/project/LEGWORK_KNOWLEDGE_STRATEGY.en.md)
+and ADR-0027/0028 on that same revision. These documents record accepted product
+direction, not implementation evidence. The owner approved direct feature marketing
+without “in development” or public-availability labels. Keep that editorial decision
+separate from engineering status when maintaining this repository.
+
+RAG is a compatible retrieval backend; no superiority over optimized Agentic RAG
+is claimed. The existing −98.6% result belongs to delegated research alone, not wiki
+benefits or RAG comparison. Original sources remain authoritative; workers propose
+updates and frontier models review them before wiki publication. The data-handling
+page reflects that reviewer role, including the limits of a local research worker.

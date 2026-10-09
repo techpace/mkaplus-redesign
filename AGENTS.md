@@ -13,7 +13,9 @@ AI agents own content creation and management. A separate CMS is deferred.
 - Blog articles belong in `src/content/posts/*.md`, with required frontmatter.
 - Reuse the IDs in `src/data/taxonomy.ts`; avoid synonyms and duplicate labels.
 - Preserve published slugs and existing `.html` URLs. Add redirects when changing them.
-- Keep product claims tied to the current release and source evidence.
+- Keep product claims tied to source evidence and owner-approved positioning. For the
+  Legwork knowledge positioning, follow the README: describe features directly
+  without availability labels, and keep research benchmark claims separate from wiki/RAG.
 - Keep the original site design and form behavior unless the task asks to change them.
 - Do not edit `dist/`, bring back `build_site.py`, or hand-maintain generated blog indexes.
 - Deploy only `dist/`, never the repository root or Markdown sources.

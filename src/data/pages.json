@@ -30,7 +30,7 @@
   {
     "slug": "index",
     "title": "MKA Plus",
-    "description": "Legwork hands the digging to a low-cost worker so Claude or ChatGPT can keep the thinking. Marshal governs AI use across your organization.",
+    "description": "Legwork combines document research for Claude and ChatGPT with a living, source-linked knowledge wiki. Marshal governs AI use across your organization.",
     "active": null,
     "forms": false
   },
@@ -51,7 +51,7 @@
   {
     "slug": "legwork",
     "title": "Legwork | MKA Plus",
-    "description": "A research worker for Claude and ChatGPT. It searches, reads and cross-checks your documents and reports back with sources.",
+    "description": "Every investigation makes your workspace smarter. Legwork combines sourced document research with an LLM wiki connecting people, relationships, decisions and timelines.",
     "active": "legwork.html",
     "forms": false
   },
