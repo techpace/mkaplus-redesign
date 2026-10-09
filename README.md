@@ -114,15 +114,17 @@ real handler later. This migration does not add a form backend.
 The live domain currently points to the Netlify site `glistening-khapse-b69d57`.
 `netlify.toml` runs `npm run build && npm test` using Node 22.22.2 and publishes only
 `dist/`. Pretty URL post-processing is disabled to preserve `.html` canonicals.
-The production branch is controlled in Netlify's site settings; this repository's
-configuration does not change that setting.
+The production branch in Netlify is now `codex/astro-content` (previously
+`claude/practical-ride-r9vhit`). Netlify's build command and publish directory are
+aligned with the file above. Future pushes should use this branch. Changing the
+production branch requires Netlify's UI/API; editing the TOML alone does not change it.
 
 For an authorized direct production deploy of the tested local output:
 
 ```sh
 npm run build
 npm test
-netlify deploy --prod --dir=dist --site=glistening-khapse-b69d57
+netlify deploy --prod --no-build --dir=dist --site=glistening-khapse-b69d57
 ```
 
 Authenticate through Netlify's CLI/browser login before deploying. Do not commit
@@ -193,7 +195,10 @@ a compatibility sitemap index. `robots.txt` points to `sitemap-index.xml`.
   navigation verified. Eight key pages checked at 390px width with no page overflow.
 - Main page copy and all three article bodies match the original redesign branch;
   original CSS is retained and form JavaScript is unchanged.
-- Implementation is local; production deployment remains pending; the motion follow-up is implemented locally.
+- Astro and motion are pushed on `codex/astro-content` and published on Netlify.
+  Initial production deploy: `6ac86580382d69c74c124c03` (9 October 2026).
+  Netlify reports `ready`; production motion, reduced-motion behavior and mobile
+  pages were checked in Chrome at `https://www.mkaplus.com`.
 
 ## Before launch
 
