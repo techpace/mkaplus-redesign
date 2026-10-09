@@ -1,0 +1,76 @@
+<script>
+  // Enhance visible marketing content only. Nothing is hidden in CSS or HTML.
+  const scope = document.querySelector<HTMLElement>('main[data-motion]');
+  if (scope && 'IntersectionObserver' in window && 'animate' in Element.prototype) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const running = new Map<Animation, Element>();
+    const seen = new WeakSet<Element>();
+    const plans = new Map<Element, { delay: number; kind?: 'node' | 'arrow' | 'chain' }>();
+    const ease = 'cubic-bezier(.22, .61, .36, 1)';
+
+    const play = (target: Element, frames: Keyframe[], options: KeyframeAnimationOptions) => {
+      const animation = target.animate(frames, options);
+      running.set(animation, target);
+      animation.finished.catch(() => {}).finally(() => running.delete(animation));
+    };
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting || seen.has(entry.target)) continue;
+        const target = entry.target as HTMLElement;
+        const plan = plans.get(target)!;
+        seen.add(target);
+        observer.unobserve(target);
+        // A focus jump must never fade out the control the visitor is using.
+        if (reduced.matches || target.contains(document.activeElement)) continue;
+        if (plan.kind === 'arrow') {
+          play(target, [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }],
+            { duration: 420, delay: plan.delay, easing: ease });
+          continue;
+        }
+        play(target, [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'translateY(0)' }],
+          { duration: 480, delay: plan.delay, easing: ease, fill: 'backwards' });
+        const highlight = plan.kind === 'node' ? target : plan.kind === 'chain' ? target.querySelector('.dot') : null;
+        if (highlight) play(highlight,
+          [{ boxShadow: '0 0 0 0 transparent' }, { boxShadow: '0 0 0 5px color-mix(in srgb, var(--accent) 16%, transparent)' }, { boxShadow: '0 0 0 0 transparent' }],
+          { duration: 900, delay: plan.delay + 200, easing: 'ease-out' });
+      }
+    }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
+
+    const add = (target: Element, delay = 0, kind?: 'node' | 'arrow' | 'chain') => {
+      if (plans.has(target)) return;
+      plans.set(target, { delay, kind });
+      observer.observe(target);
+    };
+    scope.querySelectorAll('.hero .top').forEach((hero) => {
+      Array.from(hero.children).forEach((child, index) => add(child, Math.min(index * 65, 260)));
+    });
+    scope.querySelectorAll('.page-hero > .wrap').forEach((hero) => {
+      Array.from(hero.children).forEach((child, index) => add(child, Math.min(index * 65, 260)));
+    });
+    scope.querySelectorAll('section:not(.hero):not(.page-hero) > .wrap').forEach((section) => add(section));
+    scope.querySelectorAll('.flow-row').forEach((flow) => {
+      flow.querySelectorAll('.node').forEach((node, index) => add(node, index * 120, 'node'));
+      flow.querySelectorAll<HTMLElement>('.arrow i').forEach((arrow, index) => {
+        arrow.style.transformOrigin = arrow.closest('.back') ? 'right' : 'left';
+        add(arrow, index * 100 + 180, 'arrow');
+      });
+    });
+    scope.querySelectorAll('.chain').forEach((chain) => {
+      chain.querySelectorAll('li').forEach((step, index) => add(step, index * 85, 'chain'));
+    });
+    const cancelAll = () => {
+      if (reduced.matches) for (const animation of running.keys()) animation.cancel();
+    };
+    reduced.addEventListener('change', cancelAll);
+    scope.addEventListener('focusin', (event) => {
+      for (const [animation, target] of running) {
+        if (event.target instanceof Node && target.contains(event.target)) animation.cancel();
+      }
+    });
+    window.addEventListener('pagehide', () => {
+      observer.disconnect();
+      for (const animation of running.keys()) animation.cancel();
+      reduced.removeEventListener('change', cancelAll);
+    }, { once: true });
+  }
+</script>

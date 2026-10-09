@@ -7,8 +7,7 @@ publish and maintain the articles. Product, article type, topic and tag classifi
 does not require a separate CMS. There is no CMS admin, content database or publishing API.
 
 Astro builds static HTML into `dist/`; nginx serves that output. Existing page design,
-copy, diagrams, benchmark charts, form behavior and `.html` URLs are retained. Motion
-beyond the existing button hover is a separate task.
+copy, diagrams, benchmark charts, form behavior and `.html` URLs are retained. Marketing pages now include light, one-time motion; article pages stay still.
 
 Reconsider a CMS when concurrent API writers, editorial permissions, a human editing
 interface or content shared across multiple channels becomes a real requirement.
@@ -82,6 +81,28 @@ articles have no public route and do not appear in archives, related posts or si
 Draft source is still visible to anyone with access to this Git repository; this
 repository is public, so it is not a place for confidential drafts.
 
+## Motion (9 October 2026)
+
+Home, Legwork, Marshal, Services and About have a short staggered hero entrance,
+one-time section reveals, and subtle hover accents. The Legwork flow arrows/nodes
+and Marshal approval steps animate once when visible. No looping animation,
+parallax, scroll hijacking or animation dependency is used.
+
+`src/components/Motion.astro` uses IntersectionObserver and the browser's Web
+Animations API. Pages opt in through the layout's `motion` prop. HTML/CSS never
+hide content pending JavaScript. Missing browser APIs or disabled JavaScript leave
+the page readable. Reduced-motion preferences skip/cancel these animations, and
+keyboard focus cancels any animation on the focused block. Blog, legal, form and
+benchmark detail pages remain still, including article charts.
+
+Verified on Chrome desktop/mobile: one-time playback, final content visibility,
+reduced-motion startup and live cancellation, still editorial pages, keyboard focus,
+no-JavaScript reading and missing-API fallback. Astro build and four site tests pass.
+
+To adjust timing, edit the component; hover styles are at the end of
+`public/assets/site.css`. Keep movement small and single-run, retain reduced-motion
+support, and check mobile, keyboard and no-JavaScript behavior after changing it.
+
 ## Forms
 
 Forms retain the current behavior: submission opens the visitor's email app with
@@ -151,7 +172,7 @@ a compatibility sitemap index. `robots.txt` points to `sitemap-index.xml`.
   navigation verified. Eight key pages checked at 390px width with no page overflow.
 - Main page copy and all three article bodies match the original redesign branch;
   original CSS is retained and form JavaScript is unchanged.
-- Implementation is local; production deployment and additional motion remain pending.
+- Implementation is local; production deployment remains pending; the motion follow-up is implemented locally.
 
 ## Before launch
 

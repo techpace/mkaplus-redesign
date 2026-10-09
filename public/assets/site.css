@@ -321,3 +321,19 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 .blog-browse summary { cursor: pointer; }
 .browse-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 24px; }
 .browse-groups h2 { font-size: 1rem; }
+
+/* Marketing interactions. No hidden-content classes: the JS animation is optional. */
+@media (prefers-reduced-motion: no-preference) {
+  main[data-motion] .node,
+  main[data-motion] .pillar,
+  main[data-motion] .sheet { transition: border-color 180ms ease, box-shadow 180ms ease; }
+  .nav-links a { transition: color 160ms ease, background-color 160ms ease; }
+  .btn { transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease; }
+  @media (hover: hover) and (pointer: fine) {
+    main[data-motion] .node:hover,
+    main[data-motion] .sheet:hover { box-shadow: 0 8px 24px -16px color-mix(in srgb, var(--accent) 35%, transparent); }
+    main[data-motion] .pillar:hover { box-shadow: inset 0 2px 0 var(--accent); }
+  }
+}
+/* Editorial pages remain still, including charts inherited from the old CSS. */
+main:not([data-motion]) .fill { animation: none; }

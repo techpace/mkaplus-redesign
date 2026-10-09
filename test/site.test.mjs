@@ -17,7 +17,7 @@ test('existing pages, charts, forms and metadata are present in the built site',
   const pages = JSON.parse(read(join(root, 'src/data/pages.json')));
   for (const page of pages) {
     const html = read(join(dist, `${page.slug}.html`));
-    assert.match(html, /<main>/);
+    assert.match(html, /<main(?:\s[^>]*)?>/);
     assert.match(html, /rel="canonical"/);
     if (page.forms) assert.match(html, /src="\/assets\/forms.js"/);
   }

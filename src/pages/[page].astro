@@ -8,4 +8,4 @@ export function getStaticPaths() {
 const { page } = Astro.props;
 const body = bodies[`../content/site-pages/${page.slug}.html`] as string;
 ---
-<SiteLayout {...page} noindex={page.slug === '404'}><Fragment set:html={body} /></SiteLayout>
+<SiteLayout {...page} motion={['legwork', 'marshal', 'services', 'about'].includes(page.slug)} noindex={page.slug === '404'}><Fragment set:html={body} /></SiteLayout>

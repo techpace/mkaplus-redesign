@@ -1,7 +1,8 @@
 ---
 import Navigation from '../components/Navigation.astro';
-interface Props { title: string; description: string; active?: string | null; forms?: boolean; article?: boolean; publishDate?: string; noindex?: boolean }
-const { title, description, active, forms = false, article = false, publishDate, noindex = false } = Astro.props;
+import Motion from '../components/Motion.astro';
+interface Props { title: string; description: string; active?: string | null; forms?: boolean; article?: boolean; publishDate?: string; noindex?: boolean; motion?: boolean }
+const { title, description, active, forms = false, article = false, publishDate, noindex = false, motion = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname === '/index.html' ? '/' : Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
@@ -25,7 +26,7 @@ const canonical = new URL(Astro.url.pathname === '/index.html' ? '/' : Astro.url
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&amp;family=Schibsted+Grotesk:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" />
-  <link rel="stylesheet" href="/assets/site.css?v=5" />
+  <link rel="stylesheet" href="/assets/site.css?v=6" />
 </head>
 <body>
 <header class="site-header">
@@ -38,7 +39,7 @@ const canonical = new URL(Astro.url.pathname === '/index.html' ? '/' : Astro.url
     </div>
   </div>
 </header>
-<main><slot /></main>
+<main data-motion={motion ? '' : undefined}><slot /></main>
 <footer class="site-footer">
   <div class="wrap">
     <div class="stack" style="gap:10px">
@@ -62,6 +63,7 @@ const canonical = new URL(Astro.url.pathname === '/index.html' ? '/' : Astro.url
     <p class="legal">© 2026 MKA Plus. All rights reserved.</p>
   </div>
 </footer>
+{motion && <Motion />}
 {forms && <script is:inline src="/assets/forms.js" defer></script>}
 </body>
 </html>
