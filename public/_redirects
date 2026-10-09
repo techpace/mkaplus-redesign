@@ -1,0 +1,8 @@
+# Keep old routes and extensionless links working on hosts that use this file.
+/our-services /services.html 301
+/our-services.html /services.html 301
+/our-client / 301
+/our-client.html / 301
+/10853299-1655312208.5223.html /404.html 404!
+/:page /:page.html 200
+/blog/:kind/:term /blog/:kind/:term.html 200

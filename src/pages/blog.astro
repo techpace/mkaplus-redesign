@@ -1,0 +1,27 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PostList from '../components/PostList.astro';
+import BlogFilters from '../components/BlogFilters.astro';
+import { publishedPosts } from '../lib/posts';
+import { taxonomy, archiveUrl, type TaxonomyKind } from '../data/taxonomy';
+const posts = await publishedPosts();
+---
+<SiteLayout title="Blog | MKA Plus" description="Notes from MKA Plus on what we're building and how we test it." active="blog.html">
+  <section class="page-hero"><div class="wrap stack-lg">
+    <span class="tag">Blog</span><h1 class="sm">Notes from the build.</h1>
+    <p class="lede">What we're working on at MKA Plus, how we test it, and what the numbers do and don't show.</p>
+  </div></section>
+  <section><div class="wrap stack-lg">
+    <details class="blog-browse"><summary>Browse by product, type, topic or tag</summary>
+      <div class="browse-groups">
+        {(Object.keys(taxonomy) as TaxonomyKind[]).map((kind) => <div class="stack">
+          <h2>{kind === 'type' ? 'Article types' : `${kind[0].toUpperCase()}${kind.slice(1)}s`}</h2>
+          <div class="post-taxonomy">{Object.entries(taxonomy[kind]).map(([id, name]) => <a href={archiveUrl(kind, id)}>{name}</a>)}</div>
+        </div>)}
+      </div>
+    </details>
+    <BlogFilters />
+    <PostList posts={posts} filterable />
+    {!posts.length && <p class="muted">No published posts yet.</p>}
+  </div></section>
+</SiteLayout>

@@ -1,0 +1,59 @@
+---
+import { taxonomy, type TaxonomyKind } from '../data/taxonomy';
+const kinds = Object.keys(taxonomy) as TaxonomyKind[];
+const names = { product: 'Product', type: 'Type', topic: 'Topic', tag: 'Tag' };
+---
+<form class="blog-filters" data-blog-filters hidden aria-label="Filter blog posts">
+  {kinds.map((kind) => <label>{names[kind]}
+    <select name={kind}>
+      <option value="">All {names[kind].toLowerCase()}s</option>
+      {Object.entries(taxonomy[kind]).map(([id, name]) => <option value={id}>{name}</option>)}
+    </select>
+  </label>)}
+  <button class="btn" type="reset">Clear filters</button>
+</form>
+<p class="muted filter-result" data-filter-result role="status" aria-live="polite" hidden></p>
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-blog-filters]');
+  const status = document.querySelector<HTMLElement>('[data-filter-result]');
+  const posts = Array.from(document.querySelectorAll<HTMLElement>('[data-post]'));
+  if (form && status) {
+    const kinds = ['product', 'type', 'topic', 'tag'] as const;
+    const apply = () => {
+      const data = new FormData(form);
+      let count = 0;
+      for (const post of posts) {
+        const matches = kinds.every((kind) => {
+          const value = String(data.get(kind) ?? '');
+          const actual = post.dataset[kind === 'topic' ? 'topics' : kind === 'tag' ? 'tags' : kind] ?? '';
+          return !value || actual.split(' ').includes(value);
+        });
+        post.hidden = !matches;
+        if (matches) count++;
+      }
+      status.textContent = count ? `${count} ${count === 1 ? 'post' : 'posts'}` : 'No posts match these filters.';
+      const url = new URL(window.location.href);
+      for (const kind of kinds) {
+        const value = String(data.get(kind) ?? '');
+        if (value) url.searchParams.set(kind, value); else url.searchParams.delete(kind);
+      }
+      window.history.replaceState(null, '', url);
+    };
+    const readUrl = () => {
+      const query = new URLSearchParams(window.location.search);
+      for (const kind of kinds) {
+        const select = form.elements.namedItem(kind) as HTMLSelectElement;
+        const value = query.get(kind) ?? '';
+        select.value = Array.from(select.options).some((option) => option.value === value) ? value : '';
+      }
+      apply();
+    };
+    form.hidden = false;
+    status.hidden = false;
+    form.addEventListener('change', apply);
+    form.addEventListener('submit', (event) => event.preventDefault());
+    form.addEventListener('reset', () => setTimeout(apply, 0));
+    window.addEventListener('popstate', readUrl);
+    readUrl();
+  }
+</script>

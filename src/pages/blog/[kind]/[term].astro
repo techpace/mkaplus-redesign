@@ -1,0 +1,23 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import PostList from '../../../components/PostList.astro';
+import { publishedPosts, matchesTerm } from '../../../lib/posts';
+import { taxonomy, type TaxonomyKind } from '../../../data/taxonomy';
+export async function getStaticPaths() {
+  const posts = await publishedPosts();
+  return (Object.keys(taxonomy) as TaxonomyKind[]).flatMap((kind) =>
+    Object.entries(taxonomy[kind]).map(([term, name]) => ({
+      params: { kind, term }, props: { kind, name, posts: posts.filter((post) => matchesTerm(post, kind, term)) },
+    })));
+}
+const { kind, name, posts } = Astro.props;
+---
+<SiteLayout title={`${name} | Blog | MKA Plus`} description={`Notes about ${name} from MKA Plus.`} active="blog.html" noindex={!posts.length}>
+  <section class="page-hero"><div class="wrap stack-lg">
+    <a class="crumb" href="/blog.html">← All notes</a><span class="tag">{kind}</span>
+    <h1 class="sm">{name}</h1><p class="lede">{posts.length} {posts.length === 1 ? 'note' : 'notes'} from the build.</p>
+  </div></section>
+  <section><div class="wrap"><PostList posts={posts} />
+    {!posts.length && <p class="muted">No published posts in this category yet. <a href="/blog.html">Browse all notes</a>.</p>}
+  </div></section>
+</SiteLayout>

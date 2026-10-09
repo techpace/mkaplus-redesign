@@ -1,0 +1,11 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import pages from '../data/pages.json';
+const bodies = import.meta.glob('../content/site-pages/*.html', { eager: true, query: '?raw', import: 'default' });
+export function getStaticPaths() {
+  return pages.filter((page) => page.slug !== 'index').map((page) => ({ params: { page: page.slug }, props: { page } }));
+}
+const { page } = Astro.props;
+const body = bodies[`../content/site-pages/${page.slug}.html`] as string;
+---
+<SiteLayout {...page} noindex={page.slug === '404'}><Fragment set:html={body} /></SiteLayout>

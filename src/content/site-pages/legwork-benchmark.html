@@ -1,0 +1,108 @@
+<section class="page-hero">
+  <div class="wrap stack-lg">
+    <a class="crumb" href="/legwork.html">← Legwork</a>
+    <h1 class="sm">Legwork benchmark</h1>
+    <p class="lede">How much work moves off your main model when it delegates the digging, and what happens to answer quality. Internal test, run 5 October 2026, reviewed 6 October 2026.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <div class="stack">
+      <span class="tag">What we tested</span>
+      <h2>Real questions, real documents.</h2>
+    </div>
+    <div class="rows" style="margin-top:0">
+      <div><h3>Documents</h3><p>A 2,275-file Vietnamese-language novel manuscript and its notes, about 35 MB of text.</p></div>
+      <div><h3>Questions</h3><p>10 questions the author actually asks day to day about the manuscript.</p></div>
+      <div><h3>Two modes</h3><p>The reasoning model does all the searching and reading itself, or it delegates the digging to a Legwork worker and works from the report.</p></div>
+      <div><h3>Runs</h3><p>Each question twice in each mode: 40 runs. Each run had a 10-minute budget.</p></div>
+      <div><h3>Quality review</h3><p>All 40 answers reviewed blind by the manuscript's author, who knows the material best.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="surface">
+  <div class="wrap split">
+    <div class="stack">
+      <span class="tag">Reasoning-model workload</span>
+      <h2>Results</h2>
+      <p class="fn">Totals over 20 runs per mode.</p>
+    </div>
+    
+<div class="bars">
+  <div class="metric">
+    <div class="metric-head"><h3>Input tokens</h3><span class="delta">−98.6%</span></div>
+    <div class="row"><span class="lab">Does it all</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">37.45M</span></div>
+    <div class="row"><span class="lab">With Legwork</span><div class="track"><div class="fill lw" style="width:1.36%"></div></div><span class="val">0.51M</span></div>
+  </div>
+  <div class="metric">
+    <div class="metric-head"><h3>Requests</h3><span class="delta">−91%</span></div>
+    <div class="row"><span class="lab">Does it all</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">776</span></div>
+    <div class="row"><span class="lab">With Legwork</span><div class="track"><div class="fill lw" style="width:8.76%"></div></div><span class="val">68</span></div>
+  </div>
+  <div class="quality">
+    <span class="big">Same quality</span>
+    <p class="muted">Equal average score in a blind review. The delegated answer was preferred in 6 of 10 questions.</p>
+  </div>
+</div>
+
+  </div>
+  <div class="wrap" style="margin-top:48px">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Reasoning model</th><th class="num">Does it all</th><th class="num">With Legwork</th><th class="num">Change</th></tr></thead>
+        <tbody>
+          <tr><td>Requests</td><td class="num">776</td><td class="num">68</td><td class="num"><strong>−91%</strong></td></tr>
+          <tr><td>Input tokens</td><td class="num">37,452,931</td><td class="num">510,012</td><td class="num"><strong>−98.6%</strong></td></tr>
+          <tr><td>Input tokens, not cached</td><td class="num">3,060,099</td><td class="num">354,364</td><td class="num"><strong>−88.4%</strong></td></tr>
+          <tr><td>Output tokens</td><td class="num">411,559</td><td class="num">107,971</td><td class="num"><strong>−74%</strong></td></tr>
+          <tr><td>Tool results read into its context</td><td class="num">4.35 MB</td><td class="num">0.68 MB</td><td class="num"><strong>−84%</strong></td></tr>
+          <tr><td>Total time</td><td class="num">12,827 s</td><td class="num">12,733 s</td><td class="num">about the same</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fn" style="margin-top:14px">In the "does it all" mode, 16 of 20 runs were still investigating when the 10-minute budget ran out, so its figures are a lower bound. Most of its input was cache hits, which providers usually bill at a lower rate; the not-cached row shows that view.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <div class="stack">
+      <span class="tag">Answer quality</span>
+      <h2>Same average, more variation.</h2>
+    </div>
+    <div class="stack-lg">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Blind review</th><th class="num">Does it all</th><th class="num">With Legwork</th></tr></thead>
+          <tbody>
+            <tr><td>Average score (1–5)</td><td class="num">4.12</td><td class="num">4.12</td></tr>
+            <tr><td>Questions where this answer was preferred</td><td class="num">4 of 10</td><td class="num">6 of 10</td></tr>
+            <tr><td>Answers with an inaccuracy</td><td class="num">0 of 20</td><td class="num">2 of 20</td></tr>
+            <tr><td>Answers with a minor omission</td><td class="num">1 of 20</td><td class="num">2 of 20</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fn">One question had a best answer in each mode and is counted for both; one had no clear favourite. Every question got a usable answer in both modes. Both inaccuracies were in delegated runs, which is why Legwork reports carry a source for every finding and make re-running the worker cheap.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap split">
+    <div class="stack">
+      <span class="tag">Limits</span>
+      <h2>What this test doesn't show.</h2>
+    </div>
+    <div class="prose">
+      <ul>
+        <li><strong>Not measured inside the Claude or ChatGPT apps.</strong> The reasoning model was driven through its API. Testing inside the apps is in progress.</li>
+        <li><strong>Not a speed gain.</strong> Both modes used about the same time.</li>
+        <li><strong>The work moves; it doesn't vanish.</strong> The worker read about 8.2 MB and returned 0.68 MB of reports. That work lands on a low-cost model you choose instead of your main one.</li>
+        <li><strong>Worker cost depends on your choice of model.</strong> We don't name models here because you pick your own, and results will vary with that choice.</li>
+        <li><strong>One corpus, one reviewer.</strong> The questions were hard, real ones. Everyday questions may be lighter; we haven't measured that yet.</li>
+      </ul>
+    </div>
+  </div>
+</section>

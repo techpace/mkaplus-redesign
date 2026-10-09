@@ -1,0 +1,7 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import body from '../content/site-pages/index.html?raw';
+import pages from '../data/pages.json';
+const page = pages.find((page) => page.slug === 'index')!;
+---
+<SiteLayout {...page}><Fragment set:html={body} /></SiteLayout>

@@ -1,0 +1,9 @@
+---
+interface Props { active?: string | null }
+const { active } = Astro.props;
+const links = [['legwork.html', 'Legwork'], ['marshal.html', 'Marshal'], ['services.html', 'Services'],
+  ['about.html', 'About'], ['blog.html', 'Blog'], ['contact.html', 'Contact']];
+---
+<ul class="nav-links">
+  {links.map(([href, name]) => <li><a href={`/${href}`} aria-current={active === href ? 'page' : undefined}>{name}</a></li>)}
+</ul>

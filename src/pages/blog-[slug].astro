@@ -1,0 +1,28 @@
+---
+import { render } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PostList from '../components/PostList.astro';
+import { publishedPosts, humanDate, relatedPosts } from '../lib/posts';
+import { label, archiveUrl } from '../data/taxonomy';
+export async function getStaticPaths() {
+  const all = await publishedPosts();
+  return all.map((post) => ({ params: { slug: post.id }, props: { post, related: relatedPosts(post, all) } }));
+}
+const { post, related } = Astro.props;
+const { Content } = await render(post);
+---
+<SiteLayout title={`${post.data.title} | MKA Plus`} description={post.data.summary} active="blog.html" article publishDate={post.data.publishDate}>
+  <section class="page-hero"><div class="wrap"><div class="post-col stack-lg">
+    <a class="crumb" href="/blog.html">← Blog</a>
+    <span class="tag"><time datetime={post.data.publishDate}>{humanDate(post.data.publishDate)}</time></span>
+    <h1 class="sm">{post.data.title}</h1><p class="lede">{post.data.summary}</p>
+    <div class="post-taxonomy" aria-label="Article categories">
+      <a href={archiveUrl('product', post.data.product)}>{label('product', post.data.product)}</a>
+      <a href={archiveUrl('type', post.data.type)}>{label('type', post.data.type)}</a>
+      {post.data.topics.map((id) => <a href={archiveUrl('topic', id)}>{label('topic', id)}</a>)}
+      {post.data.tags.map((id) => <a href={archiveUrl('tag', id)}>#{label('tag', id)}</a>)}
+    </div>
+  </div></div></section>
+  <section><div class="wrap"><article class="prose post-col"><Content /></article></div></section>
+  {!!related.length && <section><div class="wrap stack-lg"><h2>Related notes</h2><PostList posts={related} /></div></section>}
+</SiteLayout>

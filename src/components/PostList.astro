@@ -1,0 +1,22 @@
+---
+import { postUrl, humanDate, type Post } from '../lib/posts';
+import { label, archiveUrl } from '../data/taxonomy';
+interface Props { posts: Post[]; filterable?: boolean }
+const { posts, filterable = false } = Astro.props;
+---
+<div class="rows post-list" style="margin-top:0">
+  {posts.map((post) => <div data-post={filterable ? '' : undefined}
+    data-product={post.data.product} data-type={post.data.type}
+    data-topics={post.data.topics.join(' ')} data-tags={post.data.tags.join(' ')}>
+    <span class="tag"><time datetime={post.data.publishDate}>{humanDate(post.data.publishDate)}</time></span>
+    <div class="stack" style="gap:10px">
+      <h3><a href={postUrl(post)}>{post.data.title}</a></h3>
+      <p>{post.data.summary}</p>
+      <div class="post-taxonomy">
+        <a href={archiveUrl('product', post.data.product)}>{label('product', post.data.product)}</a>
+        <a href={archiveUrl('type', post.data.type)}>{label('type', post.data.type)}</a>
+        {post.data.topics.map((id) => <a href={archiveUrl('topic', id)}>{label('topic', id)}</a>)}
+      </div>
+    </div>
+  </div>)}
+</div>

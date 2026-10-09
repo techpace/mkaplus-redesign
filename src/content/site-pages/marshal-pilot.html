@@ -1,0 +1,61 @@
+<section class="page-hero">
+  <div class="wrap stack-lg">
+    <a class="crumb" href="/marshal.html">← Marshal</a>
+    <h1 class="sm">Lighthouse pilot program</h1>
+    <p class="lede">A time-boxed Marshal pilot in your environment, with a clear path to production.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <div class="stack-lg">
+      <span class="tag">What a pilot includes</span>
+      <div class="rows" style="margin-top:0">
+        <div><h3>Your environment</h3><p>Runs on your infrastructure or private cloud, with real providers you choose.</p></div>
+        <div><h3>Agreed criteria</h3><p>Acceptance criteria we agree and sign up front, so both sides know what success looks like.</p></div>
+        <div><h3>A named sponsor</h3><p>One owner on your side who can decide on the next step.</p></div>
+        <div><h3>A fixed time-box</h3><p>A set start and end date, with a clear path to production if it works.</p></div>
+        <div><h3>Limited places</h3><p>We run a small number of pilots at a time, so each one gets our full attention.</p></div>
+      </div>
+    </div>
+    <form class="form" data-subject="Marshal pilot conversation" novalidate>
+      <div class="two-col">
+        <div class="field"><label for="pi-name">Name</label><input id="pi-name" name="name" data-label="Name" required autocomplete="name"></div>
+        <div class="field"><label for="pi-email">Work email</label><input id="pi-email" name="email" data-label="Email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="two-col">
+        <div class="field"><label for="pi-company">Company</label><input id="pi-company" name="company" data-label="Company" required autocomplete="organization"></div>
+        <div class="field"><label for="pi-role">Your role</label><input id="pi-role" name="role" data-label="Role" autocomplete="organization-title"></div>
+      </div>
+      <fieldset class="field"><legend>AI providers in use</legend>
+        <div class="checks">
+          <label><input type="checkbox" id="pi-p-openai" name="providers" value="OpenAI" data-label="Providers"> OpenAI</label>
+          <label><input type="checkbox" id="pi-p-anthropic" name="providers" value="Anthropic"> Anthropic</label>
+          <label><input type="checkbox" id="pi-p-google" name="providers" value="Google"> Google</label>
+          <label><input type="checkbox" id="pi-p-aws" name="providers" value="AWS Bedrock"> AWS Bedrock</label>
+          <label><input type="checkbox" id="pi-p-azure" name="providers" value="Azure OpenAI"> Azure OpenAI</label>
+          <label><input type="checkbox" id="pi-p-self" name="providers" value="Self-hosted or other"> Self-hosted or other</label>
+        </div></fieldset>
+      <div class="two-col">
+        <div class="field"><label for="pi-users">People using AI</label>
+          <select id="pi-users" name="users" data-label="Users">
+            <option value="">Choose one</option><option>Under 50</option><option>50 to 250</option><option>250 to 1,000</option><option>More than 1,000</option>
+          </select></div>
+        <div class="field"><label for="pi-deploy">Where would it run?</label>
+          <select id="pi-deploy" name="deploy" data-label="Deployment">
+            <option value="">Choose one</option><option>On-premises</option><option>Private cloud (VPC)</option><option>Not sure yet</option>
+          </select></div>
+      </div>
+      <fieldset class="field"><legend>What matters most?</legend>
+        <div class="checks">
+          <label><input type="checkbox" id="pi-n-who" name="needs" value="Who uses what" data-label="Priorities"> Who uses what</label>
+          <label><input type="checkbox" id="pi-n-cost" name="needs" value="Cost by department"> Cost by department</label>
+          <label><input type="checkbox" id="pi-n-keys" name="needs" value="Approvals and keys"> Approvals and keys</label>
+          <label><input type="checkbox" id="pi-n-audit" name="needs" value="Policy and audit"> Policy and audit</label>
+        </div></fieldset>
+      <div class="field"><label for="pi-notes">Anything else?</label><textarea id="pi-notes" name="notes" data-label="Notes"></textarea></div>
+      <div class="actions"><button class="btn primary" type="submit">Request a pilot conversation</button></div>
+      <p class="form-result" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>

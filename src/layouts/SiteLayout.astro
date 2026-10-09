@@ -1,0 +1,67 @@
+---
+import Navigation from '../components/Navigation.astro';
+interface Props { title: string; description: string; active?: string | null; forms?: boolean; article?: boolean; publishDate?: string; noindex?: boolean }
+const { title, description, active, forms = false, article = false, publishDate, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname === '/index.html' ? '/' : Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta property="og:type" content={article ? 'article' : 'website'} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  {publishDate && <meta property="article:published_time" content={`${publishDate}T00:00:00Z`} />}
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/assets/icon-192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&amp;family=Schibsted+Grotesk:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" />
+  <link rel="stylesheet" href="/assets/site.css?v=5" />
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/index.html" aria-label="MKA Plus"><img src="/assets/logo.webp" alt="MKA Plus" width="174" height="28"></a>
+    <nav class="desktop-nav" aria-label="Main"><Navigation active={active} /></nav>
+    <div class="nav-right">
+      <a class="btn primary" href="/early-access.html">Get early access</a>
+      <details class="menu"><summary aria-label="Open menu">Menu</summary><nav aria-label="Main (mobile)"><Navigation active={active} /></nav></details>
+    </div>
+  </div>
+</header>
+<main><slot /></main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="stack" style="gap:10px">
+      <a class="logo" href="/index.html" aria-label="MKA Plus"><img src="/assets/logo.webp" alt="MKA Plus" width="174" height="28"></a>
+      <p>36/70/4 D2 Street, Ward 25, Binh Thanh District, HCMC, Vietnam</p>
+      <p>Tel +84 28 3620 5400 · hello@mkaplus.com</p>
+    </div>
+    <ul>
+      <li><a href="/legwork.html">Legwork</a></li>
+      <li><a href="/legwork-benchmark.html">Benchmark</a></li>
+      <li><a href="/marshal.html">Marshal</a></li>
+      <li><a href="/services.html">Managed IT services</a></li>
+    </ul>
+    <ul>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/privacy.html">Privacy</a></li>
+      <li><a href="/terms.html">Terms</a></li>
+    </ul>
+    <p class="legal">© 2026 MKA Plus. All rights reserved.</p>
+  </div>
+</footer>
+{forms && <script is:inline src="/assets/forms.js" defer></script>}
+</body>
+</html>

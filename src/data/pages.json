@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "404",
+    "title": "Page not found | MKA Plus",
+    "description": "Page not found.",
+    "active": null,
+    "forms": false
+  },
+  {
+    "slug": "about",
+    "title": "About | MKA Plus",
+    "description": "MKA Plus: from managed IT to building AI products.",
+    "active": "about.html",
+    "forms": false
+  },
+  {
+    "slug": "contact",
+    "title": "Contact | MKA Plus",
+    "description": "Contact MKA Plus about Legwork, Marshal or managed IT services.",
+    "active": "contact.html",
+    "forms": true
+  },
+  {
+    "slug": "early-access",
+    "title": "Early access | Legwork",
+    "description": "Request early access to Legwork.",
+    "active": "legwork.html",
+    "forms": true
+  },
+  {
+    "slug": "index",
+    "title": "MKA Plus",
+    "description": "Legwork hands the digging to a low-cost worker so Claude or ChatGPT can keep the thinking. Marshal governs AI use across your organization.",
+    "active": null,
+    "forms": false
+  },
+  {
+    "slug": "legwork-benchmark",
+    "title": "Legwork benchmark | MKA Plus",
+    "description": "Internal benchmark: how much work moves off the reasoning model when it delegates, and what happens to answer quality.",
+    "active": "legwork.html",
+    "forms": false
+  },
+  {
+    "slug": "legwork-privacy",
+    "title": "Your documents and keys | Legwork",
+    "description": "Who reads your documents when you use Legwork, and who pays for model usage.",
+    "active": "legwork.html",
+    "forms": false
+  },
+  {
+    "slug": "legwork",
+    "title": "Legwork | MKA Plus",
+    "description": "A research worker for Claude and ChatGPT. It searches, reads and cross-checks your documents and reports back with sources.",
+    "active": "legwork.html",
+    "forms": false
+  },
+  {
+    "slug": "marshal-pilot",
+    "title": "Pilot program | Marshal",
+    "description": "Request a time-boxed Marshal pilot in your environment.",
+    "active": "marshal.html",
+    "forms": true
+  },
+  {
+    "slug": "marshal",
+    "title": "Marshal | MKA Plus",
+    "description": "Route, approve and account for every AI request. A private control plane for enterprise AI.",
+    "active": "marshal.html",
+    "forms": false
+  },
+  {
+    "slug": "privacy",
+    "title": "Privacy | MKA Plus",
+    "description": "How the MKA Plus website handles your information.",
+    "active": null,
+    "forms": false
+  },
+  {
+    "slug": "services",
+    "title": "Managed IT services | MKA Plus",
+    "description": "Network, security, planning, licensing and AI rollout from MKA Plus.",
+    "active": "services.html",
+    "forms": false
+  },
+  {
+    "slug": "terms",
+    "title": "Terms | MKA Plus",
+    "description": "Terms for using the MKA Plus website.",
+    "active": null,
+    "forms": false
+  }
+]
