@@ -9,7 +9,7 @@
   {
     "slug": "about",
     "title": "About | MKA Plus",
-    "description": "MKA Plus: from managed IT to building AI products.",
+    "description": "MKA Plus builds practical enterprise AI products on a foundation of managed IT experience: Legwork research and AI workers, plus Marshal governance.",
     "active": "about.html",
     "forms": false
   },
@@ -30,7 +30,7 @@
   {
     "slug": "index",
     "title": "MKA Plus",
-    "description": "Legwork combines document research for Claude and ChatGPT with a living, source-linked knowledge wiki. Marshal governs AI use across your organization.",
+    "description": "Legwork brings source-linked research, a living knowledge wiki and enterprise AI workers into Microsoft Teams and Slack. Marshal governs AI usage.",
     "active": null,
     "forms": false
   },
@@ -51,7 +51,7 @@
   {
     "slug": "legwork",
     "title": "Legwork | MKA Plus",
-    "description": "Every investigation makes your workspace smarter. Legwork combines sourced document research with an LLM wiki connecting people, relationships, decisions and timelines.",
+    "description": "Legwork combines source-cited research, a persistent LLM wiki and enterprise AI workers for Microsoft Teams and Slack.",
     "active": "legwork.html",
     "forms": false
   },
