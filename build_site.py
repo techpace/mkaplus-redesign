@@ -169,7 +169,7 @@ MKA_BAND = """
   <div class="wrap split">
     <h2>Built by MKA Plus.</h2>
     <div class="stack-lg">
-      <p style="font-size:1.1rem;max-width:36em">MKA Plus has run managed IT for organizations for more than 10 years. The same team that keeps networks and systems running now builds and deploys AI products, and stays on to support them.</p>
+      <p style="font-size:1.1rem;max-width:36em">Founded in 2022, MKA Plus runs managed IT with a team that brings more than 10 years of hands-on experience. The same team that keeps networks and systems running now builds and deploys AI products, and stays on to support them.</p>
       <div class="actions"><a class="btn" href="services.html">Our IT services</a><a class="btn" href="about.html">About us</a></div>
     </div>
   </div>
@@ -716,7 +716,7 @@ SERVICES = """
 <section class="page-hero">
   <div class="wrap stack-lg">
     <span class="tag">Managed IT &amp; implementation</span>
-    <h1 class="sm">Managed IT, for more than 10 years.</h1>
+    <h1 class="sm">Managed IT, from a team with 10+ years of experience.</h1>
     <p class="lede">Network, security, planning and licensing for organizations of every size, and now deploying AI that IT can govern.</p>
     <div class="actions"><a class="btn primary" href="contact.html">Talk to our team</a></div>
   </div>
@@ -768,7 +768,7 @@ ABOUT = """
   <div class="wrap stack-lg">
     <span class="tag">About MKA Plus</span>
     <h1 class="sm">From running IT to building AI products.</h1>
-    <p class="lede">MKA Plus started as a managed IT company in Saigon and has supported organizations from start-ups to mid-market for more than 10 years.</p>
+    <p class="lede">MKA Plus is a managed IT company in Saigon, founded in 2022. Our team has spent more than 10 years supporting organizations from start-ups to mid-market.</p>
   </div>
 </section>
 
